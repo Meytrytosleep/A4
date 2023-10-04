@@ -1,8 +1,9 @@
 import random
 
 class Spinner:
-    def __init__(self, synonym_file):
+    def __init__(self, synonym_file, spin_probability=50):
         self.synonyms = self._load_synonyms(synonym_file)
+        self.spin_probability = spin_probability
 
     def _load_synonyms(self, filename):
         synonyms = {}
@@ -12,9 +13,13 @@ class Spinner:
                 synonyms[key] = values.split(', ')
         return synonyms
 
+    def set_spin_probability(self, probability):
+        """Sets the probability of a word being spun to a synonym."""
+        self.spin_probability = probability
+
     def spin_word(self, word):
         if word in self.synonyms:
-            if random.randint(1, 100) > 50:
+            if random.randint(1, 100) > self.spin_probability:
                 return random.choice(self.synonyms[word])
         return word
 
