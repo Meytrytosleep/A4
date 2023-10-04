@@ -1,0 +1,3 @@
+good:fair,excellent,proper
+bad:evil,noxious,harmful
+person:individual
