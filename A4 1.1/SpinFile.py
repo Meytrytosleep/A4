@@ -1,4 +1,5 @@
 import string
+import sys
 
 def clean_text(text):
     return text.translate(str.maketrans('', '', string.punctuation)).lower()
@@ -16,9 +17,12 @@ def main(synonym_file='test-synonyms.txt', essay_file='essay.txt'):
             print(f"Option {i + 1}:", spun_text)
             results.append(spun_text)
 
+    
     with open('results.txt', 'w') as f:
         for idx, result in enumerate(results, 1):
             f.write(f"Option {idx}: {result}\n")
 
 if __name__ == '__main__':
-    main()
+    synonym_file = sys.argv[1] if len(sys.argv) > 1 else 'test-synonyms.txt'
+    essay_file = sys.argv[2] if len(sys.argv) > 2 else 'essay.txt'
+    main(synonym_file, essay_file)
