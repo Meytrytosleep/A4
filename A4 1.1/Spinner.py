@@ -17,7 +17,10 @@ class Spinner:
         """Sets the probability of a word being spun to a synonym."""
         self.spin_probability = probability
 
-    def spin_word(self, word):
+    def spin_word(self, word, previous_word):
+        if previous_word == "very":
+            return word
+
         if word in self.synonyms:
             if random.randint(1, 100) > self.spin_probability:
                 return random.choice(self.synonyms[word])
@@ -25,4 +28,8 @@ class Spinner:
 
     def spin_text(self, text):
         words = text.split()
-        return ' '.join([self.spin_word(word) for word in words])
+        spun_words = []
+        for idx, word in enumerate(words):
+            previous_word = words[idx-1] if idx > 0 else None
+            spun_words.append(self.spin_word(word, previous_word))
+        return ' '.join(spun_words)
